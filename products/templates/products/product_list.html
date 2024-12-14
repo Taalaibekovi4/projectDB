@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Products</h1>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.id }} - {{ product.title }} - ${{ product.price }}
+                 - {{ product.category }} - {{ product.sub_category }} - {{ product.brand }}
+                 - {{ product.opis }}
+                <img src="{{ product.media_urls }}" alt="{{ product.name }}">
+            </li>
+
+        {% endfor %}
+    </ul>
+</body>
+</html>
