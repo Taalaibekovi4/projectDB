@@ -8,14 +8,24 @@ class Product(models.Model):
     sub_category = models.CharField(max_length=100)
     brand = models.CharField(max_length=100)
     opis = models.TextField()
+    media_url = models.CharField(max_length=1000, blank=True, null=True)
 
     def __str__(self):
         return self.title
 
 
 class ProductImage(models.Model):
+
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='products/')
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.product.media_url:
+            self.product.media_url += ',' + self.image.url
+        else:
+            self.product.media_url = self.image.url
+        self.product.save()
 
     def __str__(self):
         return f"Image for {self.product.title}"

@@ -1,12 +1,12 @@
 from django.contrib import admin
-from products.models import Product, ProductImage
+from .models import Product, ProductImage
 
-# Регистрация модели ProductImage как inline
-class ProductImageInline(admin.TabularInline):  # Можно использовать StackedInline, если нужен другой стиль
+class ProductImageInline(admin.TabularInline):
     model = ProductImage
-    extra = 1  # Количество пустых полей для добавления новых изображений
+    extra = 1
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'price', 'category', 'brand']
-    inlines = [ProductImageInline]  # Добавляем inline для изображений
+
+    list_display = ['id', 'title', 'price', 'category', 'brand', 'media_url']
+    inlines = [ProductImageInline]
