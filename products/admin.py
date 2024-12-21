@@ -1,12 +1,14 @@
 from django.contrib import admin
-from .models import Product, ProductImage
+from .models import Product
 
-class ProductImageInline(admin.TabularInline):
-    model = ProductImage
-    extra = 1
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'price', 'category', 'brand', 'get_media_url']
 
-    list_display = ['id', 'title', 'price', 'category', 'brand', 'media_url']
-    inlines = [ProductImageInline]
+
+    def get_media_url(self, obj):
+        return obj.media_url  # Возвращаем значение поля media_url
+
+    get_media_url.short_description = 'Media URL'  # Переименование столбца в админке
